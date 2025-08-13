@@ -93,8 +93,8 @@ export const sendAutoReply = async (formData) => {
     const autoReplyParams = {
       to_name: formData.name,
       to_email: formData.email,
-      user_subject: formData.subject,
-      user_message: formData.message,
+      subject: formData.subject,
+      message: formData.message,
       from_name: 'Ayush Gupta',
       from_email: 'omayush456.ag@gmail.com',
       current_time: new Date().toLocaleString('en-US', {
