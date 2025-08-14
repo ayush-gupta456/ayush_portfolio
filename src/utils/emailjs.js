@@ -30,8 +30,8 @@ export const sendEmail = async (formData) => {
       from_email: formData.email,
       subject: formData.subject,
       message: formData.message,
-      to_name: 'Ayush Gupta', 
-      to_email: 'omayush456.ag@gmail.com', 
+      to_name: 'Ayush Gupta',
+      to_email: 'omayush456.ag@gmail.com',
       reply_to: formData.email,
       current_time: new Date().toLocaleString('en-US', {
         timeZone: 'Asia/Kolkata',
@@ -58,9 +58,9 @@ export const sendEmail = async (formData) => {
     };
   } catch (error) {
     console.error('EmailJS Error:', error);
-    
+
     let errorMessage = 'Failed to send email. Please try again.';
-    
+
     if (error.message.includes('configuration')) {
       errorMessage = 'Email service is not properly configured. Please contact the administrator.';
     } else if (error.status === 422) {
@@ -136,20 +136,18 @@ export const sendEmailWithAutoReply = async (formData) => {
   try {
     // Send main email first
     const mainResult = await sendEmail(formData);
-    
+
     if (!mainResult.success) {
       return mainResult;
     }
 
     // Send auto-reply if main email succeeded
     const autoReplyResult = await sendAutoReply(formData);
-    
-    // Return success even if auto-reply fails
     return {
       success: true,
       mainEmail: mainResult,
       autoReply: autoReplyResult,
-      message: autoReplyResult.skipped 
+      message: autoReplyResult.skipped
         ? `Thank you ${formData.name}! Your message has been sent successfully.`
         : `Thank you ${formData.name}! Your message has been sent successfully and you should receive a confirmation email shortly.`,
     };
@@ -165,10 +163,10 @@ export const sendEmailWithAutoReply = async (formData) => {
 
 // Validate email configuration
 export const validateEmailConfig = () => {
-  const isValid = emailjsConfig.serviceId && 
-                  emailjsConfig.templateId && 
-                  emailjsConfig.publicKey;
-  
+  const isValid = emailjsConfig.serviceId &&
+    emailjsConfig.templateId &&
+    emailjsConfig.publicKey;
+
   if (!isValid) {
     console.warn('EmailJS configuration is incomplete:', {
       serviceId: !!emailjsConfig.serviceId,
@@ -177,6 +175,6 @@ export const validateEmailConfig = () => {
       publicKey: !!emailjsConfig.publicKey,
     });
   }
-  
+
   return isValid;
 };
