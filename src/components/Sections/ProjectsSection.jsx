@@ -43,7 +43,6 @@ const ProjectsSection = () => {
     "AI-driven code review with suggestions for improvements and best practices",
     "Automated debugging support with detailed trace outputs",
     "Time and space complexity analysis for submitted code",
-    "Secure backend API integration with JWT-based authentication",
     "Modern and responsive React UI with smooth animations and transitions",
     "Copy-to-clipboard and export options for AI-generated reviews",
     "Deployment-ready structure with separate frontend and backend layers"
