@@ -66,6 +66,7 @@ function assertConfig() {
   if (!Number.isInteger(trustProxyHops) || trustProxyHops < 0 || trustProxyHops > 3) throw new Error("TRUST_PROXY_HOPS must be an integer from 0 to 3 and match the deployed proxy chain.");
   if (!["lax", "strict", "none"].includes(cookieSameSite)) throw new Error("COOKIE_SAME_SITE must be lax, strict, or none.");
   for (const origin of [publicOrigin, adminOrigin]) { const parsed = new URL(origin); if (isProduction && parsed.protocol !== "https:") throw new Error("Public and admin origins must use HTTPS in production."); if (parsed.origin !== origin) throw new Error("PUBLIC_ORIGIN and ADMIN_ORIGIN must contain only the exact origin, with no path or trailing slash."); }
+  if (cookieName.startsWith("__Host-") && !isProduction) throw new Error("__Host- session cookies require NODE_ENV=production so the Secure attribute is enabled.");
   if (isProduction && (!cookieName.startsWith("__Host-") || cookieSameSite === "none")) throw new Error("Production sessions require a __Host- cookie name and SameSite=Lax or Strict; deploy admin and API on the same site or proxy the API under the admin origin.");
 }
 
@@ -113,8 +114,8 @@ const requireOrigin=origin=>originGuard(origin,{isProduction});
 const requireAdminOrigin = requireOrigin(adminOrigin);
 function readCookie(req, name) { const pair = req.headers.cookie?.split(";").map((item) => item.trim()).find((item) => item.startsWith(`${name}=`)); if (!pair) return ""; try { return decodeURIComponent(pair.slice(name.length + 1)); } catch { return ""; } }
 async function adminSession(req, res, next) {
-  const raw = readCookie(req, cookieName); if (!raw || raw.length > 128) return res.status(401).json({ error: "Sign in to continue." });
-  try { const session = await col("admin_sessions").findOne({ _id: hashToken(raw), credentialVersion: app.locals.credentialVersion, expiresAt: { $gt: new Date() } }); if (!session) return res.status(401).json({ error: "Sign in to continue." }); req.session = session; return next(); } catch (error) { return next(error); }
+  const raw = readCookie(req, cookieName); if (!raw || raw.length > 128) return res.status(401).json({ code: "SESSION_COOKIE_MISSING", error: "Sign in to continue." });
+  try { const session = await col("admin_sessions").findOne({ _id: hashToken(raw), credentialVersion: app.locals.credentialVersion, expiresAt: { $gt: new Date() } }); if (!session) return res.status(401).json({ code: "SESSION_INVALID", error: "Your session expired or credentials changed. Sign in again." }); req.session = session; return next(); } catch (error) { return next(error); }
 }
 const requireCsrf=csrfGuard(safeEqual);
 const adminGuard = [originGuard(adminOrigin,{isProduction,allowSameOriginReads:true}), adminSession]; const mutateGuard = [...adminGuard, requireCsrf];

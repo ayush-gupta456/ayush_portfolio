@@ -97,3 +97,11 @@
 .note-cover-editor summary { cursor: pointer; color: var(--text); font-size: 14px; min-height: 44px; display: list-item; align-content: center; }
 .note-cover-editor summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
 @media(max-width:650px) { .note-cover-editor { padding: 16px; } }
+
+.login-password-field { display: grid; gap: 10px; }
+.login-password-field > label { margin: 0; }
+.login-password-control { position: relative; }
+.login-password-control input { width: 100%; padding-right: 108px; }
+.login-password-button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; min-width: 90px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; color: var(--text); background: var(--canvas); font: inherit; font-size: 14px; cursor: pointer; }
+.login-password-button:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.login-password-button:disabled { opacity: .6; cursor: wait; }
