@@ -8,7 +8,7 @@ export async function request(path,{csrf,responseType,...options}={}) {
   const response=await fetch(`${API_BASE}${path}`,{credentials:'include',...options,signal:options.signal?AbortSignal.any([options.signal,timeout]):timeout,headers:{...(typeof options.body==='string'?{'Content-Type':'application/json'}:{}),...(csrf?{'X-CSRF-Token':csrf}:{}),...options.headers}});
   if(response.ok&&responseType==='blob')return response.blob();
   const data=await response.json().catch(()=>null);
-  if(response.status===401&&path!=='/admin/auth/login')window.dispatchEvent(new Event('admin-session-expired'));
+  if(response.status===401&&!['/admin/auth/login','/admin/auth/session'].includes(path))window.dispatchEvent(new Event('admin-session-expired'));
   if(!response.ok){const error=Error(data?.error||`The request could not be completed (${response.status}).`);error.status=response.status;error.code=data?.code;error.details=Array.isArray(data?.details)?data.details:[];throw error}
   if(!data)throw Error('The server returned an unexpected response. Reload the list before saving again.');
   return data;
