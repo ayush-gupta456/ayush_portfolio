@@ -1,3 +1,4 @@
+import { credentialVersion } from './admin-credentials.js';
 import { originMatches as matchOrigin, originGuard, csrfGuard } from './origin.js';
 import { registerNotes } from './notes.js';
 import argon2 from "argon2";
@@ -190,7 +191,7 @@ app.use((_req, res) => res.status(404).json({ error: "Not found." }));
 app.use((error, req, res, _next) => { void _next; const requestId = token(12); console.error(JSON.stringify({ requestId, method: req.method, path: req.path, error: error.message })); if (res.headersSent) return; return res.status(error.type === "entity.too.large" ? 413 : error.type === "entity.parse.failed" ? 400 : 500).json({ error: error.type === "entity.too.large" ? "Request is too large." : error.type === "entity.parse.failed" ? "Invalid JSON request." : "The request could not be completed.", requestId }); });
 
 export async function startServer() {
-  assertConfig(); app.locals.passwordHash = await argon2.hash(adminPassword, { type: argon2.argon2id, memoryCost: 19_456, timeCost: 2, parallelism: 1 }); app.locals.credentialVersion = hashToken(`${app.locals.passwordHash}:${totpSecret}`);
+  assertConfig(); app.locals.passwordHash = await argon2.hash(adminPassword, { type: argon2.argon2id, memoryCost: 19_456, timeCost: 2, parallelism: 1 }); app.locals.credentialVersion = credentialVersion(adminEmail, adminPassword, totpSecret);
   await mongo.connect(); db = mongo.db(databaseName); if (!await col("portfolio_content").findOne({ _id: "profile" }, { projection: { _id: 1 } })) throw new Error("MongoDB is not initialized. Run `npm run init-db` before starting the API.");
   const server = app.listen(apiPort, () => console.info(`API listening on port ${apiPort} (contact email contract ${contactEmailContract}; EmailJS ${emailJsConfigured ? "configured" : "not configured"})`)); const shutdown = () => server.close(async () => { await mongo.close(); process.exit(0); }); process.once("SIGINT", shutdown); process.once("SIGTERM", shutdown); return server;
 }
