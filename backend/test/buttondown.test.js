@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {makeNewsletterEvent,sendButtondownEvent} from '../src/buttondown.js';
+test('newsletter content escapes visitor-controlled content and links to the note',()=>{const event=makeNewsletterEvent({id:'note-1',version:3,title:'<script>x</script>',summary:'<img src=x onerror=x>',publicOrigin:'https://portfolio.example'});assert.ok(!event.payload.body.includes('<script>'));assert.ok(!event.payload.body.includes('<img'));assert.ok(event.payload.body.includes('https://portfolio.example/notes?post=note-1'));assert.equal(event.payload.status,'about_to_send')});
+test('retrying the same newsletter uses the same provider idempotency key',async()=>{const event=makeNewsletterEvent({id:'note-1',version:3,title:'Useful note',summary:'Useful explanation.',publicOrigin:'https://portfolio.example'});const headers=[];const fetcher=async(_url,options)=>{headers.push(options.headers);return {ok:true,json:async()=>({id:'em_test'})}};await sendButtondownEvent(event,{fetcher,apiKey:'test-key'});await sendButtondownEvent(event,{fetcher,apiKey:'test-key'});assert.equal(headers[0]['X-Idempotency-Key'],headers[1]['X-Idempotency-Key']);assert.equal(headers[0].Authorization,'Token test-key');assert.equal(headers[0]['X-Buttondown-Live-Dangerously'],'true');assert.equal(headers[0]['X-API-Version'],'2026-04-01')});
+test('Buttondown rejection is reported as failure, not accepted delivery',async()=>{const event={key:'test',payload:{}};await assert.rejects(sendButtondownEvent(event,{apiKey:'test',fetcher:async()=>({ok:false,status:403})}),/HTTP 403/)});
+
+test('provider error codes are retained for actionable admin feedback',async()=>{
+ await assert.rejects(sendButtondownEvent({key:'failure',payload:{status:'about_to_send'}},{apiKey:'test',fetcher:async()=>({ok:false,status:400,json:async()=>({code:'sending_requires_confirmation',detail:'Confirmation header required.'})})}),/sending_requires_confirmation/);
+});
+
+test('retry replaces a legacy localhost reading link with the public site',async()=>{
+ const previous=process.env.NEWSLETTER_PUBLIC_ORIGIN;process.env.NEWSLETTER_PUBLIC_ORIGIN='https://portfolio.example';let payload;
+ try{await sendButtondownEvent({key:'legacy',payload:{body:'<a href="http://localhost:5174/notes?post=note-1">Read</a>',status:'about_to_send'}},{apiKey:'test',fetcher:async(_url,options)=>{payload=JSON.parse(options.body);return {ok:true,json:async()=>({id:'em_test'})}}});assert.ok(payload.body.includes('https://portfolio.example/notes?post=note-1'));assert.ok(!payload.body.includes('localhost'));}finally{if(previous===undefined)delete process.env.NEWSLETTER_PUBLIC_ORIGIN;else process.env.NEWSLETTER_PUBLIC_ORIGIN=previous}
+});

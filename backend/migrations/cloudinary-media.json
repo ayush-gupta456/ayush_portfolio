@@ -1,0 +1,100 @@
+{
+  "43549212c8e6a274c2e1448e4d5511150fc568516b870926b1992f1d854564f8": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/image/upload/v1792662527/portfolio/f1bef408-6f4d-43f2-95f4-e1e10a2c5174.jpg",
+    "publicId": "portfolio/f1bef408-6f4d-43f2-95f4-e1e10a2c5174",
+    "type": "image/jpeg",
+    "bytes": 60303,
+    "label": "Portrait"
+  },
+  "7d787fee0e074dcfd2dde62e1ae3211167a6cec068552f1285830f0117ee68d4": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662529/portfolio/a09e4f8e-4990-4797-9a89-21b787dba2ec.pdf",
+    "publicId": "portfolio/a09e4f8e-4990-4797-9a89-21b787dba2ec.pdf",
+    "type": "application/pdf",
+    "bytes": 86818,
+    "label": "Resume"
+  },
+  "ba2bf6b44e3fbc237d95909864d62592417a63d5a7954e3629e9a45aa62e1103": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662532/portfolio/87037850-7a4c-4e77-a97b-62cf0a58c89d.pdf",
+    "publicId": "portfolio/87037850-7a4c-4e77-a97b-62cf0a58c89d.pdf",
+    "type": "application/pdf",
+    "bytes": 7683582,
+    "label": "Software Engineer"
+  },
+  "2e2ce859dd4845a900a66f27c16dc649c20274d81c775c76ffc3b650f7ebe422": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662536/portfolio/ff0fcb8a-8cfa-47f1-8bb9-a3972abb988e.pdf",
+    "publicId": "portfolio/ff0fcb8a-8cfa-47f1-8bb9-a3972abb988e.pdf",
+    "type": "application/pdf",
+    "bytes": 7683582,
+    "label": "Problem Solving (Basic)"
+  },
+  "4a3d0cf25b30aa5a3e1430d995dfabcffea350cda6decc823434ccdd8e80fd08": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662540/portfolio/1fd1c672-2464-4b98-8e5a-82df78bb88a3.pdf",
+    "publicId": "portfolio/1fd1c672-2464-4b98-8e5a-82df78bb88a3.pdf",
+    "type": "application/pdf",
+    "bytes": 121220,
+    "label": "Web Development"
+  },
+  "cf81e2e1ee380092b80ac3a52d3954d0bb2ca9337c651ee72027ab37a276b531": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/image/upload/v1792662541/portfolio/deca61ec-a74f-49ca-bdca-a94566e7fe7e.png",
+    "publicId": "portfolio/deca61ec-a74f-49ca-bdca-a94566e7fe7e",
+    "type": "image/png",
+    "bytes": 162005,
+    "label": "JavaScript"
+  },
+  "15de0181ee4c854459fcb1e5988da2ac757eb795897aab74462b8e58fd276540": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662543/portfolio/c3600377-ecdc-43a7-83d6-d44effb626bc.pdf",
+    "publicId": "portfolio/c3600377-ecdc-43a7-83d6-d44effb626bc.pdf",
+    "type": "application/pdf",
+    "bytes": 120104,
+    "label": "CSS3"
+  },
+  "d7553fb769ea9182fd062baa32148f983dfe7161406e9b5847f8a69ee12082c0": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662544/portfolio/20066f5a-3354-4535-97ed-5182f00bb24b.pdf",
+    "publicId": "portfolio/20066f5a-3354-4535-97ed-5182f00bb24b.pdf",
+    "type": "application/pdf",
+    "bytes": 59777,
+    "label": "React, Next.js & Redux"
+  },
+  "b1dedd55afb7e65f843c8936a4746bda86280d1075942c37ba5e78211302f4d9": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662545/portfolio/d0f66d9b-d91d-4172-8461-65cf854f30bd.pdf",
+    "publicId": "portfolio/d0f66d9b-d91d-4172-8461-65cf854f30bd.pdf",
+    "type": "application/pdf",
+    "bytes": 240320,
+    "label": "MongoDB"
+  },
+  "cf6b62739b2fa1a1ce3bc9611ca4d87b926291df8616b13d41604575aa9a6000": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662546/portfolio/6a865249-562b-4925-9a4b-69fafe033aaf.pdf",
+    "publicId": "portfolio/6a865249-562b-4925-9a4b-69fafe033aaf.pdf",
+    "type": "application/pdf",
+    "bytes": 241764,
+    "label": "Adobe Hackathon"
+  },
+  "b641f72ab3504204436b7282868b28bbe72af825bb57a8319fbcdfb07dd0552a": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662548/portfolio/98f0d384-75ed-464b-8818-1ca017d72820.pdf",
+    "publicId": "portfolio/98f0d384-75ed-464b-8818-1ca017d72820.pdf",
+    "type": "application/pdf",
+    "bytes": 311799,
+    "label": "Cloud Computing"
+  },
+  "ee793a1baf0c1200dc7d43398903c2958f14bfb2fd7eab44c6904678d18e8167": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662549/portfolio/627dbcb7-af38-4d09-a4c2-70c1141ca98d.pdf",
+    "publicId": "portfolio/627dbcb7-af38-4d09-a4c2-70c1141ca98d.pdf",
+    "type": "application/pdf",
+    "bytes": 386647,
+    "label": "Benefits of Cloud Services"
+  },
+  "bd68b98029378ba5d3436c8dd10520c4f3d0fc304dd02515f6333a0eaf2b36df": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662551/portfolio/ce62c93c-be60-446b-9eb7-73a59fb79e4e.pdf",
+    "publicId": "portfolio/ce62c93c-be60-446b-9eb7-73a59fb79e4e.pdf",
+    "type": "application/pdf",
+    "bytes": 311295,
+    "label": "Cloud Service Types"
+  },
+  "fbe672e3eb6f4ad1d38fecc30ce1e14fff164fdbe8258fdd6ea0111be5857443": {
+    "url": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662552/portfolio/0a64901c-35a0-4861-8bcd-a6d766d78300.pdf",
+    "publicId": "portfolio/0a64901c-35a0-4861-8bcd-a6d766d78300.pdf",
+    "type": "application/pdf",
+    "bytes": 395990,
+    "label": "AWS Cloud Computing Training"
+  }
+}
