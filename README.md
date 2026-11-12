@@ -344,3 +344,11 @@ For remaining refactoring and performance priorities, read [the production code 
 [Portfolio](https://ayushgupta-portfolio.vercel.app/) · [Notebook](https://ayushgupta-portfolio.vercel.app/notes) · [GitHub](https://github.com/ayush-gupta456)
 
 </div>
+
+## Portfolio motion refresh
+
+The public portfolio uses Framer Motion for hero entrances, project reveals, the active navigation indicator and toolkit changes. Reduced-motion preferences disable spatial animation. Project artwork is labeled as an interface study, not a live screenshot.
+
+Raaga and InsightCode metadata is defined in `shared/project-catalog.js`. On the first startup of the updated API, an optimistic, versioned migration refreshes these two projects while preserving uploaded images and other projects. It increments the profile content version so an already-open admin editor must reload. Later admin edits and removals remain authoritative. Deploy the backend alongside the frontend to complete this one-time migration; the frontend can display refreshed projects with a legacy API during rollout.
+
+Verify with `npm run lint`, `npm run build`, `npm run test:api` (after `npm ci --prefix backend`) and `npm run test:ui`. Browser tests use Google Chrome; install it with `npx playwright install chrome` if needed, or set `PLAYWRIGHT_CHROME_PATH` to an existing executable. API responses are isolated fixtures, so these tests do not send contact emails or write production data.

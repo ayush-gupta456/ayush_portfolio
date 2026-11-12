@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import { NotesSection } from './Notes.jsx';
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useTheme } from "./hooks/useTheme";
@@ -29,7 +30,7 @@ export default function App() {
     const controller = new AbortController();
     fetch(`${API_BASE}/public/profile`, { signal: AbortSignal.any([controller.signal, AbortSignal.timeout(10000)]) })
       .then((response) => { if (!response.ok) throw new Error("Portfolio API unavailable"); return response.json(); })
-      .then(({ profile: remoteProfile }) => { replaceProfile(remoteProfile); setProfileVersion((version) => version + 1); })
+      .then(({ profile: remoteProfile, projectCatalogVersion }) => { replaceProfile(remoteProfile, projectCatalogVersion); setProfileVersion((version) => version + 1); })
       .catch(() => { /* Keep the bundled public snapshot when the API is unavailable. */ });
     return () => controller.abort();
   }, []);
@@ -112,7 +113,7 @@ export default function App() {
       ".section-block .section-heading",
       ".toolkit-browser",
       ".about-copy > p, .about-copy > a, .about-card",
-      ".skill-card, .project-card, .current-project-card",
+      ".skill-card, .current-project-card",
       ".timeline-item, .education-note, .resume-card",
       ".certificate-wrap > div, .certificate-card, .contact-panel > *",
     ].join(","))];
@@ -216,7 +217,7 @@ export default function App() {
   }, [profileVersion]);
 
   return (
-    <div className={`site-root min-h-screen ${isDark ? "dark" : "light"}`}>
+    <MotionConfig reducedMotion="user"><div className={`site-root min-h-screen ${isDark ? "dark" : "light"}`}>
       <a className="portfolio-skip" href="#portfolio-main">Skip to content</a>
       <Navigation
         isDark={isDark}
@@ -242,6 +243,6 @@ export default function App() {
       </main>
 
       <Footer scrollToSection={scrollToSection} navItems={navItems} />
-    </div>
+    </div></MotionConfig>
   );
 }
