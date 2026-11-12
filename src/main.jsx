@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import Notes from './Notes.jsx';
 import './index.css';
+import './portfolio-refinement.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

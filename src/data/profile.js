@@ -1,3 +1,4 @@
+import { refreshProjects } from "../../shared/project-catalog.js";
 // Public fallback snapshot; the admin-managed API is authoritative.
 export let profile = {
   "name": "Ayush Gupta",
@@ -246,4 +247,7 @@ export let profile = {
   "portraitUrl": "https://res.cloudinary.com/qn3vgrtd/image/upload/v1792662527/portfolio/f1bef408-6f4d-43f2-95f4-e1e10a2c5174.jpg",
   "resumeUrl": "https://res.cloudinary.com/qn3vgrtd/raw/upload/v1792662529/portfolio/a09e4f8e-4990-4797-9a89-21b787dba2ec.pdf"
 };
-export function replaceProfile(nextProfile) { profile = nextProfile; }
+profile.projects = refreshProjects(profile.projects);
+export function replaceProfile(nextProfile, catalogVersion) {
+  profile = { ...nextProfile, projects: refreshProjects(nextProfile.projects, catalogVersion) };
+}

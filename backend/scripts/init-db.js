@@ -1,3 +1,4 @@
+import { PROJECT_CATALOG_VERSION } from "../../shared/project-catalog.js";
 import { config as loadEnv } from "dotenv";
 import { MongoClient } from "mongodb";
 import { profile } from "../../src/data/profile.js";
@@ -23,6 +24,6 @@ try {
   await db.collection("note_uploads").createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
   await db.collection("notes").createIndex({ status: 1, updatedAt: -1 });
   const validatedProfile = profileSchema.parse(profile);
-  await db.collection("portfolio_content").updateOne({ _id: "profile" }, { $setOnInsert: { document: validatedProfile, version: 1, updatedAt: new Date() } }, { upsert: true });
+  await db.collection("portfolio_content").updateOne({ _id: "profile" }, { $setOnInsert: { document: validatedProfile, projectCatalogVersion: PROJECT_CATALOG_VERSION, version: 1, updatedAt: new Date() } }, { upsert: true });
   console.info(`MongoDB database '${databaseName}' is ready.`);
 } finally { await client.close(); }

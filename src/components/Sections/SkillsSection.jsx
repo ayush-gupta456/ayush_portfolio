@@ -1,3 +1,4 @@
+import { motion as Motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import { Braces, Cloud, Database, Layers3, PackageCheck } from "lucide-react";
 import { profile } from "../../data/profile";
@@ -13,6 +14,7 @@ const descriptions = {
 };
 
 const SkillsSection = () => {
+  const reduce = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const selectedIndex = activeIndex < profile.skills.length ? activeIndex : 0;
   const activeGroup = profile.skills[selectedIndex];
@@ -36,7 +38,7 @@ const SkillsSection = () => {
               );
             })}
           </div>
-          {activeGroup ? <div className="toolkit-detail" key={activeGroup.category} data-glass role="region" aria-label={`${activeGroup.category} skills`} aria-live="polite">
+          {activeGroup ? <Motion.div initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .2 }} className="toolkit-detail" key={activeGroup.category} data-glass role="region" aria-label={`${activeGroup.category} skills`} aria-live="polite">
             <div className="toolkit-detail-heading">
               <span className="toolkit-detail-icon"><ActiveIcon size={18} aria-hidden="true" /></span>
               <div><span className="section-index">CATEGORY {String(selectedIndex + 1).padStart(2, "0")}</span><h3>{activeGroup.category}</h3></div>
@@ -46,7 +48,7 @@ const SkillsSection = () => {
             <div className="toolkit-skills">
               {activeGroup.items.map((item, index) => <span key={item} style={{ "--chip-index": index }}>{item}</span>)}
             </div>
-          </div> : <p className="toolkit-empty">The toolkit is being updated. Please check back soon.</p>}
+          </Motion.div> : <p className="toolkit-empty">The toolkit is being updated. Please check back soon.</p>}
         </div>
     </div>
   </section>
